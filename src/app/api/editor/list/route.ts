@@ -1,15 +1,16 @@
-import { NextResponse } from 'next/server';
+// src/pages/api/editor/list.ts
+
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { examAttrConverter } from '@/database/converters/exam';
 import { fs_e } from '@/database/firestore';
 
-export async function GET() {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    //get list of document
     const snapshot = await fs_e.withConverter(examAttrConverter).get();
     const data = snapshot.docs.map((doc) => doc.data());
-    return NextResponse.json(data);
+    res.status(200).json(data);
   } catch (e) {
-    console.log(e);
-    return NextResponse.json({ status: 'fail', data: e }, { status: 500 });
+    console.error(e);
+    res.status(500).json({ status: 'fail', data: e });
   }
 }
