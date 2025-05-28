@@ -1,6 +1,6 @@
 // src/pages/api/editor/list.ts
 
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
 import { examAttrConverter } from '@/database/converters/exam';
 import { fs_e } from '@/database/firestore';
 
